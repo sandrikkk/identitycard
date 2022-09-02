@@ -7,11 +7,29 @@ class sex(models.Model):
     sex = models.CharField(max_length=50)
     def __str__(self):
         return self.sex
-class Department(models.Model):
+
+class ParentDepartment(models.Model):
+    parentdepartment = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.parentdepartment
+
+class ChildDepartment(models.Model):
+    parentdepartment = models.ForeignKey(ParentDepartment, on_delete=models.CASCADE)
     department = models.CharField(max_length=150, null = True)
 
     def __str__(self):
-        return self.department
+        return f"{self.parentdepartment}/{self.department}"
+
+class Characteristics(models.Model):
+    class Meta:
+        verbose_name = "characteristicss"
+        verbose_name_plural = "characteristics" 
+    characteristics = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.characteristics
+
 
 class Person(models.Model):
     name = models.CharField(max_length=50)
@@ -21,10 +39,20 @@ class Person(models.Model):
     city = models.CharField(max_length=50)
     sex = models.ForeignKey(sex, on_delete=models.SET_NULL, null = True)
     personalid = models.CharField(max_length=11, unique=True)
-    department = models.ForeignKey(Department, on_delete=models.DO_NOTHING)
+    parentdepartment = models.ForeignKey(ParentDepartment, on_delete=models.DO_NOTHING)
+    Childepartment = models.ForeignKey(ChildDepartment, on_delete=models.DO_NOTHING)
+    ChilrdDepartment1 = models.CharField(max_length=150)
+    characteristics = models.ManyToManyField(Characteristics)
     dateofbirth = models.DateField()
     dateofexpiry = models.DateField()
 
     def __str__(self):
-        return f"{self.name} {self.last_name}"
+        return f"{self.name} {self.last_name} - {self.parentdepartment}/{self.Childepartment}/{self.ChilrdDepartment1} - დან"
+class Monitoring(models.Model):
+    movida = models.DateTimeField()
+    wavida = models.DateTimeField()
+    comment = models.TextField(max_length=255)
+    person = models.ForeignKey(Person, on_delete=models.SET_NULL, null = True)
 
+    def __str__(self):
+        return f"{self.person}"
