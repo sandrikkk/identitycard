@@ -39,15 +39,13 @@ class Person(models.Model):
     city = models.CharField(max_length=50)
     sex = models.ForeignKey(sex, on_delete=models.SET_NULL, null = True)
     personalid = models.CharField(max_length=11, unique=True)
-    parentdepartment = models.ForeignKey(ParentDepartment, on_delete=models.DO_NOTHING)
-    Childepartment = models.ForeignKey(ChildDepartment, on_delete=models.DO_NOTHING)
-    ChilrdDepartment1 = models.CharField(max_length=150)
+    department = models.ForeignKey(ChildDepartment, on_delete=models.DO_NOTHING, null = True)
     characteristics = models.ManyToManyField(Characteristics)
     dateofbirth = models.DateField()
     dateofexpiry = models.DateField()
 
     def __str__(self):
-        return f"{self.name} {self.last_name} - {self.parentdepartment}/{self.Childepartment}/{self.ChilrdDepartment1} - დან"
+        return f"{self.name} {self.last_name} - {self.department} - დან"
 class Monitoring(models.Model):
     movida = models.DateTimeField()
     wavida = models.DateTimeField()
