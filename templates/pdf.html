@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h2>Persons</h2>
+
+<table>
+  <tr>
+    <th>name</th>
+    <th>last name</th>
+    <th>city</th>
+    <th>sex</th>
+    <th>personal ID</th>
+    <th>department</th>
+    <th>date of birth</th>
+  </tr>
+  {% for person in persons %}
+  <tr>
+    <td>{{person.name}}</td>
+    <td>{{person.last_name}}</td>
+    <td>{{person.city}}</td>
+    <td>{{person.sex}}</td>
+    <td>{{person.personalid}}</td>
+    <td>{{person.department}}</td>
+    <td>{{person.dateofbirth}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<br>
+<br>
+<br>
+<br>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Come Time</th>
+    <th>Leave Time</th>
+    <th>Comment</th>
+  </tr>
+  {% for monitoring in monitorings %}
+  <tr>
+    <td>{{monitoring.person.name}}</td>
+    <td>{{monitoring.movida}}</td>
+    <td>{{monitoring.wavida}}</td>
+    <td>{{monitoring.comment}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>
+
